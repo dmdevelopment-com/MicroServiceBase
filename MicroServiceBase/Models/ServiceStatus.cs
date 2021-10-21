@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MicroServiceBase.Models
+namespace MicroServiceBase.Template.Models
 {
     public class ServiceStatus
     {

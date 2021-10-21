@@ -1,4 +1,4 @@
-using MicroServiceBase.Models;
+using MicroServiceBase.Template.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroServiceBase
+namespace MicroServiceBase.Template
 {
     public class Program
     {
@@ -24,7 +24,7 @@ namespace MicroServiceBase
 
 
             logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            NLog.LogManager.Configuration.Variables["logfolder"] = getConfiguration().GetSection(nameof(MicroServiceBaseOptions)).GetValue<string>(nameof(MicroServiceBaseOptions.LogDirectory));
+            NLog.LogManager.Configuration.Variables["logfolder"] = getConfiguration().GetSection(nameof(ServiceOptions)).GetValue<string>(nameof(ServiceOptions.LogDirectory));
             NLog.LogManager.ReconfigExistingLoggers();
             logger.Info("Logger initialized");
 
@@ -81,7 +81,7 @@ namespace MicroServiceBase
                 {
                     var configuration = hostcontext.Configuration;
 
-                    services.Configure<MicroServiceBaseOptions>(configuration.GetSection("MicroServiceBaseOptions"));
+                    services.Configure<ServiceOptions>(configuration.GetSection(nameof(ServiceOptions)));
 
                     // add your DI stuff here
                     services.AddSingleton(typeof(GlobalStatus));
